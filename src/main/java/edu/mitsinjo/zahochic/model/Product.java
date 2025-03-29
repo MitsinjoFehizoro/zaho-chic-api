@@ -4,12 +4,12 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Setter
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 public class Product {
     @Id
@@ -27,7 +27,7 @@ public class Product {
     @NotNull
     @Positive(message = "Le prix doit etre positive.")
     @Digits(integer = 8, fraction = 2, message = "Prix invalide." )
-    private Double price;
+    private BigDecimal price;
 
     @NotNull
     @PositiveOrZero(message = "la quantité doit etre positive.")
@@ -43,5 +43,14 @@ public class Product {
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "category_id")
-    private Product product;
+    private Category category;
+
+    public Product(String title, String description, BigDecimal price, int quantityStock, String size, Category category) {
+        this.title = title;
+        this.description = description;
+        this.price = price;
+        this.quantityStock = quantityStock;
+        this.size = size;
+        this.category = category;
+    }
 }
