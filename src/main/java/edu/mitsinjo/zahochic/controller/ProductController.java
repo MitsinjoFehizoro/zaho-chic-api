@@ -20,12 +20,18 @@ public class ProductController {
     @PostMapping("/add")
     public ResponseEntity<ApiResponse> addProduct(@Valid @RequestBody ProductRequest productRequest) {
         Product product = productService.addProduct(productRequest);
-        return ResponseEntity.ok(new ApiResponse("Produit ajouté avec succès.", product));
+        return ResponseEntity.ok(new ApiResponse("Produit ajouté avec succès.", null));
     }
 
     @GetMapping("/all")
     public ResponseEntity<ApiResponse> getAllProducts() {
         List<Product> products = productService.getAllProducts();
         return ResponseEntity.ok(new ApiResponse("Récupération de tous les produits.", products));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ApiResponse> getProductById(@PathVariable Long id) {
+        Product product = productService.getProductById(id);
+        return ResponseEntity.ok(new ApiResponse("Récupération d'un produit avec succès.", product));
     }
 }
