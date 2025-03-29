@@ -34,4 +34,10 @@ public class ProductController {
         Product product = productService.getProductById(id);
         return ResponseEntity.ok(new ApiResponse("Récupération d'un produit avec succès.", product));
     }
+
+    @GetMapping("")
+    public ResponseEntity<ApiResponse> getProductByCategory(@RequestParam String category) {
+        List<Product> products = productService.getProductsByCategoryName(category);
+        return ResponseEntity.ok(new ApiResponse("Récupération avec succès des produits avec categorie : " + category, products));
+    }
 }

@@ -6,12 +6,18 @@ import edu.mitsinjo.zahochic.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class CategoryService implements ICategoryService {
     private final CategoryRepository categoryRepository;
+
+    @Override
+    public List<Category> getAllCategories() {
+        return categoryRepository.findAll() ;
+    }
 
     @Override
     public Category getCategoryByName(String name) {
@@ -22,6 +28,6 @@ public class CategoryService implements ICategoryService {
     public Category addCategory(Category category) {
         return Optional.of(category).filter(c -> !categoryRepository.existsByName(c.getName()))
                 .map(categoryRepository::save)
-                .orElseThrow(()-> new AlreadyExistException("Categorie " + category.getName() + " déjà enregistrée."));
+                .orElseThrow(()-> new AlreadyExistException("Catégorie " + category.getName() + " déjà enregistrée."));
     }
 }
