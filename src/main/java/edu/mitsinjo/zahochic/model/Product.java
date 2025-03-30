@@ -33,6 +33,9 @@ public class Product {
     @JoinColumn(name = "category_id")
     private Category category;
 
+    @ManyToMany(mappedBy = "products")
+    private List<CartItem> cartItems;
+
     public Product(String title, String description, BigDecimal price, int quantityStock, String size, Category category) {
         this.title = title;
         this.description = description;

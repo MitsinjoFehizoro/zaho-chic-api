@@ -1,5 +1,6 @@
 package edu.mitsinjo.zahochic.service.user;
 
+import edu.mitsinjo.zahochic.EnumUserRole;
 import edu.mitsinjo.zahochic.exception.AlreadyExistException;
 import edu.mitsinjo.zahochic.jwt.JwtUtils;
 import edu.mitsinjo.zahochic.model.User;
@@ -33,7 +34,7 @@ public class UserService implements IUserService {
         if (getUserByUsername(user.getUsername()) != null) {
             throw new AlreadyExistException("Utilisateur " + user.getUsername() + " déja enregistré.");
         }
-        user.setRole("USER_CLIENT");
+        user.setRole(EnumUserRole.USER_CLIENT.toString());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
