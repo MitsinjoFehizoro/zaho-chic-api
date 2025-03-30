@@ -20,7 +20,7 @@ public class ProductController {
     @PostMapping("/add")
     public ResponseEntity<ApiResponse> addProduct(@Valid @RequestBody ProductRequest productRequest) {
         Product product = productService.addProduct(productRequest);
-        return ResponseEntity.ok(new ApiResponse("Produit ajouté avec succès.", null));
+        return ResponseEntity.ok(new ApiResponse("Produit ajouté avec succès.", product));
     }
 
     @GetMapping("/all")

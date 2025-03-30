@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,10 +26,9 @@ public class CategoryController {
     @GetMapping("")
     public ResponseEntity<ApiResponse> getCategoryByName(@RequestParam String name) {
         Category category = categoryService.getCategoryByName(name);
-        if (category != null) {
-            return ResponseEntity.ok(new ApiResponse("Récupération avec succès de la catégorie : " + category.getName(), category));
-        }
-        return ResponseEntity.ok(new ApiResponse("Aucune catégorie : " + name, null));
+        return Optional.ofNullable(category)
+                .map(c -> ResponseEntity.ok(new ApiResponse("Récupération avec succès de la catégorie : " + c.getName(), c)))
+                .orElse(ResponseEntity.ok(new ApiResponse("Aucune catégorie : " + name, null)));
     }
 
     @PostMapping("/add")

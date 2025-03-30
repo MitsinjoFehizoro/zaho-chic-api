@@ -2,26 +2,30 @@ package edu.mitsinjo.zahochic.exception;
 
 import edu.mitsinjo.zahochic.response.ApiError;
 import edu.mitsinjo.zahochic.response.ApiResponse;
+import io.jsonwebtoken.JwtException;
+import io.jsonwebtoken.MalformedJwtException;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
+import java.nio.file.AccessDeniedException;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
-
-@RestControllerAdvice
+@ControllerAdvice
 public class CustomExceptionHandler {
 
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ApiResponse> handleResourceNotFoundException(ResourceNotFoundException e, HttpServletRequest request) {
-        Map<String, String> messages = new HashMap<>();
-        messages.put("message", e.getMessage());
+        Map<String, String> messages = Map.of("message", e.getMessage());
         ApiError apiError = new ApiError(
                 LocalDateTime.now(),
                 HttpStatus.NOT_FOUND.value(),
@@ -63,8 +67,7 @@ public class CustomExceptionHandler {
 
     @ExceptionHandler(NoHandlerFoundException.class)
     public ResponseEntity<ApiResponse> handleNoHandlerFoundException(NoHandlerFoundException e, HttpServletRequest request) {
-        Map<String, String> messages = new HashMap<>();
-        messages.put("message", "Cet url n'existe pas.");
+        Map<String, String> messages = Map.of("message", "Cet url n'existe pas.");
         ApiError apiError = new ApiError(
                 LocalDateTime.now(),
                 HttpStatus.NOT_FOUND.value(),
@@ -73,6 +76,26 @@ public class CustomExceptionHandler {
                 request.getRequestURI()
         );
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("Url invalide.", apiError));
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<ApiResponse> handleBadCredentialsException(BadCredentialsException e, HttpServletRequest request) {
+        Map<String, String> messages = Map.of("message", "Login ou mot de passe incorrect.");
+        ApiError apiError = new ApiError(
+                LocalDateTime.now(),
+                HttpStatus.UNAUTHORIZED.value(),
+                "Bad credentials"   ,
+                messages,
+                request.getRequestURI()
+        );
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ApiResponse("Login ou mot de passe incorrect.", apiError));
+    }
+
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<?> handleTokenInvalidException(AccessDeniedException ex) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body("message mkilay");
     }
 
     @ExceptionHandler(Exception.class)
