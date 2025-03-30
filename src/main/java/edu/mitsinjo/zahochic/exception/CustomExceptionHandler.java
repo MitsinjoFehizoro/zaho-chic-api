@@ -8,7 +8,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -80,7 +82,7 @@ public class CustomExceptionHandler {
 
     @ExceptionHandler(BadCredentialsException.class)
     public ResponseEntity<ApiResponse> handleBadCredentialsException(BadCredentialsException e, HttpServletRequest request) {
-        Map<String, String> messages = Map.of("message", "Login ou mot de passe incorrect.");
+        Map<String, String> messages = Map.of("message", "Username ou mot de passe incorrect.");
         ApiError apiError = new ApiError(
                 LocalDateTime.now(),
                 HttpStatus.UNAUTHORIZED.value(),
@@ -88,15 +90,22 @@ public class CustomExceptionHandler {
                 messages,
                 request.getRequestURI()
         );
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ApiResponse("Login ou mot de passe incorrect.", apiError));
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ApiResponse("Username ou mot de passe incorrect.", apiError));
     }
 
-
-    @ExceptionHandler(AccessDeniedException.class)
-    public ResponseEntity<?> handleTokenInvalidException(AccessDeniedException ex) {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                .body("message mkilay");
+    @ExceptionHandler(AuthenticationServiceException.class)
+    public ResponseEntity<ApiResponse> handleAuthenticationServiceException(AuthenticationServiceException e, HttpServletRequest request) {
+        Map<String, String> messages = Map.of("message", "Username incorrect.");
+        ApiError apiError = new ApiError(
+                LocalDateTime.now(),
+                HttpStatus.UNAUTHORIZED.value(),
+                "Bad credentials"   ,
+                messages,
+                request.getRequestURI()
+        );
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ApiResponse("Username incorrect.", apiError));
     }
+
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResponse> handleException(Exception e, HttpServletRequest request) {

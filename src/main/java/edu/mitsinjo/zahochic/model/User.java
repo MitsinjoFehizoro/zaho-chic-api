@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -32,5 +34,11 @@ public class User {
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "cart_id")
     private Cart cart;
+
+    public void createCart(){
+        Cart cart = new Cart(BigDecimal.ZERO);
+        cart.setUser(this);
+        this.setCart(cart);
+    }
 
 }

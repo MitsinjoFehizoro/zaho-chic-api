@@ -2,7 +2,7 @@ package edu.mitsinjo.zahochic.service.user;
 
 import edu.mitsinjo.zahochic.EnumUserRole;
 import edu.mitsinjo.zahochic.exception.AlreadyExistException;
-import edu.mitsinjo.zahochic.jwt.JwtUtils;
+import edu.mitsinjo.zahochic.jwt.JwtUtil;
 import edu.mitsinjo.zahochic.model.User;
 import edu.mitsinjo.zahochic.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ public class UserService implements IUserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
-    private final JwtUtils jwtUtils;
+    private final JwtUtil jwtUtil;
 
     @Override
     public User getUserByUsername(String username) {
@@ -34,6 +34,7 @@ public class UserService implements IUserService {
         if (getUserByUsername(user.getUsername()) != null) {
             throw new AlreadyExistException("Utilisateur " + user.getUsername() + " déja enregistré.");
         }
+        user.createCart();
         user.setRole(EnumUserRole.USER_CLIENT.toString());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
@@ -44,15 +45,12 @@ public class UserService implements IUserService {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword())
         );
-        if (authentication.isAuthenticated()) {
-            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-            Map<String, Object> dataResponse = new HashMap<>();
-            dataResponse.put("token", jwtUtils.generateToken(userDetails));
-            dataResponse.put("type", "Bearer");
-            dataResponse.put("username", user.getUsername());
-            dataResponse.put("role", userDetails.getAuthorities());
-            return dataResponse;
-        }
-        return null;
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        Map<String, Object> dataResponse = new HashMap<>();
+        dataResponse.put("token", jwtUtil.generateToken(userDetails.getUsername()));
+        dataResponse.put("type", "Bearer");
+        dataResponse.put("username", user.getUsername());
+        dataResponse.put("role", userDetails.getAuthorities());
+        return dataResponse;
     }
 }
