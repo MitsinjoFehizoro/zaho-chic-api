@@ -25,7 +25,10 @@ public class CategoryController {
     @GetMapping("")
     public ResponseEntity<ApiResponse> getCategoryByName(@RequestParam String name) {
         Category category = categoryService.getCategoryByName(name);
-        return ResponseEntity.ok(new ApiResponse("Récupération avec succès de la catégories : " + category.getName(), category));
+        if (category != null) {
+            return ResponseEntity.ok(new ApiResponse("Récupération avec succès de la catégorie : " + category.getName(), category));
+        }
+        return ResponseEntity.ok(new ApiResponse("Aucune catégorie : " + name, null));
     }
 
     @PostMapping("/add")

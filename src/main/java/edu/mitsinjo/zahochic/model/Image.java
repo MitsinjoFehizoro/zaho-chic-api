@@ -1,5 +1,6 @@
 package edu.mitsinjo.zahochic.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -11,7 +12,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 public class Image {
     @Id
@@ -22,7 +22,12 @@ public class Image {
     @NotBlank(message = "Url image obligatoire.")
     private String path;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="product_id")
     private Product product;
+
+    public Image(String path) {
+        this.path = path;
+    }
 }
