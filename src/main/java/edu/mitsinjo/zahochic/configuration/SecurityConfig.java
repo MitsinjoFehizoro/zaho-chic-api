@@ -49,7 +49,7 @@ public class SecurityConfig {
                         sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .authorizeHttpRequests(authorizeRequests ->
-                        authorizeRequests.requestMatchers(apiPrefix + "/user/**").permitAll()
+                        authorizeRequests.requestMatchers(apiPrefix + "/user/**",apiPrefix + "/products/get/**").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .addFilterBefore(new AuthTokenFilter(jwtUtil,customUserDetailsService), UsernamePasswordAuthenticationFilter.class)

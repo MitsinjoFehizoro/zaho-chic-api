@@ -24,9 +24,13 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public Product getProductById(Long id) {
-        return productRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Aucun produit avec id: " + id));
+    public Product getProductById(String id) {
+
+        Long validId = Long.parseLong(id);
+        return productRepository.findById(validId).orElseThrow(() -> new ResourceNotFoundException("Product with id '" + id + "' not found"));
+
     }
+
 
     @Override
     public List<Product> getProductsByCategoryName(String category) {

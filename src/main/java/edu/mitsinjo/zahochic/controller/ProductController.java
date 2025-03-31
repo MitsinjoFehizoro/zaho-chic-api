@@ -20,24 +20,25 @@ public class ProductController {
     @PostMapping("/add")
     public ResponseEntity<ApiResponse> addProduct(@Valid @RequestBody ProductRequest productRequest) {
         Product product = productService.addProduct(productRequest);
-        return ResponseEntity.ok(new ApiResponse("Produit ajouté avec succès.", product));
+        return ResponseEntity.ok(new ApiResponse("Product added successfully.", product));
     }
 
-    @GetMapping("/all")
+    @GetMapping("/get/all")
     public ResponseEntity<ApiResponse> getAllProducts() {
         List<Product> products = productService.getAllProducts();
-        return ResponseEntity.ok(new ApiResponse("Récupération de tous les produits.", products));
+        return ResponseEntity.ok(new ApiResponse("All products retrieved successfully.", products));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ApiResponse> getProductById(@PathVariable Long id) {
+
+    @GetMapping("/get/{id}")
+    public ResponseEntity<ApiResponse> getProductById(@PathVariable String id) {
         Product product = productService.getProductById(id);
-        return ResponseEntity.ok(new ApiResponse("Récupération d'un produit avec succès.", product));
+        return ResponseEntity.ok(new ApiResponse("Successfully retrieved product.", product));
     }
 
-    @GetMapping("")
+    @GetMapping("/get")
     public ResponseEntity<ApiResponse> getProductByCategory(@RequestParam String category) {
         List<Product> products = productService.getProductsByCategoryName(category);
-        return ResponseEntity.ok(new ApiResponse("Récupération avec succès des produits avec categorie : " + category, products));
+        return ResponseEntity.ok(new ApiResponse("Successfully retrieved product by category : " + category, products));
     }
 }

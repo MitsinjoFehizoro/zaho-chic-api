@@ -8,25 +8,26 @@ import java.math.BigDecimal;
 @Data
 public class ProductRequest {
     @NotNull
-    @Size(min = 3, message = "Le titre doit avoir au moins 3 caractères.")
+    @Size(min = 3, message = "Title must be at least 3 characters long.")
     private String title;
 
     @NotNull
-    @Size(min = 10, message = "Description trés courte.")
+    @Size(min = 10, message = "Description too short.")
     private String description;
 
     @NotNull
-    @Positive(message = "Le prix doit etre positive.")
-    @Digits(integer = 8, fraction = 2, message = "Prix invalide.") //Besoin d'amelioration
+    @Positive(message = "Price must be greater than 0")
+    @Digits(integer = 8, fraction = 2, message = "Invalid price.") //Besoin d'amelioration
     private BigDecimal price;
 
     @NotNull
-    @PositiveOrZero(message = "la quantité doit etre positive.")
-    @Digits(integer = 8, fraction = 2, message = "Quantité invalide.")
+    @PositiveOrZero(message = "Quantity must be positive.")
+    @Digits(integer = 8, fraction = 2, message = "Invalid quantity.")
     private int quantityStock;
 
     @NotNull
-    @Size(min = 1, message = "Taille invalide.")
+    @Size(min = 1, message = "Invalid size.")
     private String size;
+
     private String category;
 }

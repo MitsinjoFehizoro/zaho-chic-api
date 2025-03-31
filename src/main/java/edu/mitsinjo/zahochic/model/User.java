@@ -22,11 +22,11 @@ public class User {
     private Long id;
 
     @NotNull
-    @Size(min = 3, max = 20 , message = "Le username doit etre entre 3-20 caractères.")
+    @Size(min = 3, max = 20 , message = "Username must be beetwen 3 and 20 characters longs.")
     private String username;
 
     @NotNull
-    @Size(min = 4, message = "Le mot de passe doit avoir au moins 4 caractères.")
+    @Size(min = 4, message = "Password must be at least 4 characters.")
     private String password;
 
     private String role;

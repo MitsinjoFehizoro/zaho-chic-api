@@ -14,7 +14,7 @@ public class ImageService implements IImageService {
     private final ProductService productService;
 
     @Override
-    public Image addImage(Image image, Long productId) {
+    public Image addImage(Image image, String productId) {
         Product product = productService.getProductById(productId);
         image.setProduct(product);
         return imageRepository.save(image);

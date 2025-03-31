@@ -21,7 +21,7 @@ public class Category {
     private Long id;
 
     @NotNull
-    @Size(min=2, max=50, message = "La categorie doit comprise entre 2-50 caractères.")
+    @Size(min=2, max=50, message = "Category must be between 2 and 50 characters long.")
     private String name;
 
     @JsonIgnore

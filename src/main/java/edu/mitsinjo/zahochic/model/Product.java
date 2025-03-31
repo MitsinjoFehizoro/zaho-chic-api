@@ -1,7 +1,7 @@
 package edu.mitsinjo.zahochic.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -33,7 +33,8 @@ public class Product {
     @JoinColumn(name = "category_id")
     private Category category;
 
-    @ManyToMany(mappedBy = "products")
+    @JsonIgnore
+    @OneToMany(mappedBy = "product")
     private List<CartItem> cartItems;
 
     public Product(String title, String description, BigDecimal price, int quantityStock, String size, Category category) {

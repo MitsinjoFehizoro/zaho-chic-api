@@ -20,20 +20,20 @@ public class CategoryController {
     @GetMapping("/all")
     public ResponseEntity<ApiResponse> getAllCategories() {
         List<Category> categories = categoryService.getAllCategories();
-        return ResponseEntity.ok(new ApiResponse("Récupération avec succès de toutes les catégories.", categories));
+        return ResponseEntity.ok(new ApiResponse("All categories retrieved successfully.", categories));
     }
 
     @GetMapping("")
     public ResponseEntity<ApiResponse> getCategoryByName(@RequestParam String name) {
         Category category = categoryService.getCategoryByName(name);
         return Optional.ofNullable(category)
-                .map(c -> ResponseEntity.ok(new ApiResponse("Récupération avec succès de la catégorie : " + c.getName(), c)))
-                .orElse(ResponseEntity.ok(new ApiResponse("Aucune catégorie : " + name, null)));
+                .map(c -> ResponseEntity.ok(new ApiResponse("Successfully retrieved category : " + c.getName(), c)))
+                .orElse(ResponseEntity.ok(new ApiResponse("No category found for this : " + name, null)));
     }
 
     @PostMapping("/add")
     public ResponseEntity<ApiResponse> addCategory(@Valid @RequestBody Category category) {
         Category newCategory = categoryService.addCategory(category);
-        return ResponseEntity.ok(new ApiResponse("Ajout avec succès de la catégorie " + newCategory.getName(), newCategory));
+        return ResponseEntity.ok(new ApiResponse("Category added successfully." + newCategory.getName(), newCategory));
     }
 }

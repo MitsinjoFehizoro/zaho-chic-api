@@ -15,8 +15,8 @@ public class ImageController {
     private final ImageService imageService;
 
     @PostMapping("/add")
-    public ResponseEntity<ApiResponse> addImage(@Valid @RequestBody Image image, @RequestParam Long productId) {
+    public ResponseEntity<ApiResponse> addImage(@Valid @RequestBody Image image, @RequestParam String productId) {
        Image savedImage = imageService.addImage(image, productId);
-        return ResponseEntity.ok(new ApiResponse("Ajout image avec succès.", savedImage));
+        return ResponseEntity.ok(new ApiResponse("Inage added successfully.", savedImage));
     }
 }

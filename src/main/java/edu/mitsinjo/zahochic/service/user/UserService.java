@@ -2,6 +2,7 @@ package edu.mitsinjo.zahochic.service.user;
 
 import edu.mitsinjo.zahochic.EnumUserRole;
 import edu.mitsinjo.zahochic.exception.AlreadyExistException;
+import edu.mitsinjo.zahochic.exception.ResourceNotFoundException;
 import edu.mitsinjo.zahochic.jwt.JwtUtil;
 import edu.mitsinjo.zahochic.model.User;
 import edu.mitsinjo.zahochic.repository.UserRepository;
@@ -9,12 +10,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -25,6 +28,14 @@ public class UserService implements IUserService {
     private final JwtUtil jwtUtil;
 
     @Override
+    public User currentUser() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDetails userDetails = (UserDetails) principal;
+        return Optional.ofNullable(getUserByUsername(userDetails.getUsername()))
+                .orElseThrow(()-> new ResourceNotFoundException("User not found."));
+    }
+
+    @Override
     public User getUserByUsername(String username) {
         return userRepository.findByUsername(username);
     }
@@ -32,7 +43,7 @@ public class UserService implements IUserService {
     @Override
     public User addUser(User user) {
         if (getUserByUsername(user.getUsername()) != null) {
-            throw new AlreadyExistException("Utilisateur " + user.getUsername() + " déja enregistré.");
+            throw new AlreadyExistException("User " + user.getUsername() + " already registered.");
         }
         user.createCart();
         user.setRole(EnumUserRole.USER_CLIENT.toString());

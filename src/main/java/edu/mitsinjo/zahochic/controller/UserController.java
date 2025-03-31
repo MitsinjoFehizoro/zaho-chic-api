@@ -27,12 +27,12 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<ApiResponse> registerUser(@Valid @RequestBody User user) {
         User newUser = userService.addUser(user);
-        return ResponseEntity.ok(new ApiResponse("Utilisateur créé avec succès.", newUser));
+        return ResponseEntity.ok(new ApiResponse("User registered successfully.", newUser));
     }
 
     @PostMapping("/login")
     public ResponseEntity<ApiResponse> authenticateUser(@Valid @RequestBody User user) {
         Map<String, Object> data = userService.authenticateUser(user);
-        return ResponseEntity.ok(new ApiResponse("Utilisateur connecté avec succès.", data));
+        return ResponseEntity.ok(new ApiResponse("User connected.", data));
     }
 }
