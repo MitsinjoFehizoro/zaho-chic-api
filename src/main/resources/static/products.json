@@ -1,0 +1,197 @@
+[
+	{
+		"title": "Basic T-shirt",
+		"description": "Organic cotton T-shirt, comfortable and available in multiple colors.",
+		"price": "12",
+		"quantityStock": "50",
+		"size": "S - M - L - XL",
+		"images": [
+			{
+				"path": "/public/products/tee-shirt1.png"
+			}
+		],
+		"category": "tee-shirt"
+	},
+	{
+		"title": "Vintage Graphic T-shirt",
+		"description": "Cotton T-shirt with a vintage graphic design, soft and trendy.",
+		"price": "18",
+		"quantityStock": "35",
+		"size": "S - M - L - XL",
+		"images": [
+			{
+				"path": "/public/products/tee-shirt2.png"
+			}
+		],
+		"category": "tee-shirt"
+	},
+	{
+		"title": "Basic V-neck T-shirt",
+		"description": "Classic V-neck T-shirt made from organic cotton, comfortable and breathable.",
+		"price": "14",
+		"quantityStock": "40",
+		"size": "S - M - L - XL",
+		"images": [
+			{
+				"path": "/public/products/tee-shirt3.png"
+			}
+		],
+		"category": "tee-shirt"
+	},
+	{
+		"title": "Floral Summer Dress",
+		"description": "Light and elegant dress with a floral pattern, perfect for summer.",
+		"price": "50",
+		"quantityStock": "20",
+		"size": "S - M - L - XL",
+		"images": [
+			{
+				"path": "/public/products/dress1.png"
+			}
+		],
+		"category": "dress"
+	},
+	{
+		"title": "Elegant Evening Dress",
+		"description": "Sophisticated evening dress with delicate lace details, perfect for special occasions.",
+		"price": "120",
+		"quantityStock": "15",
+		"size": "S - M - L - XL",
+		"images": [
+			{
+				"path": "/public/products/dress2.png"
+			}
+		],
+		"category": "dress"
+	},
+	{
+		"title": "Casual Summer Dress",
+		"description": "Comfortable and stylish dress, ideal for a relaxed summer day out.",
+		"price": "35",
+		"quantityStock": "25",
+		"size": "S - M - L - XL",
+		"images": [
+			{
+				"path": "/public/products/dress3.png"
+			}
+		],
+		"category": "dress"
+	},
+	{
+		"title": "Cargo Pants",
+		"description": "Cotton cargo pants with multiple pockets, ideal for a casual style.",
+		"price": "80",
+		"quantityStock": "30",
+		"size": "M - L - XL",
+		"images": [
+			{
+				"path": "/public/products/pants1.png"
+			}
+		],
+		"category": "pants"
+	},
+	{
+		"title": "Slim Fit Chinos",
+		"description": "Chinos in a slim fit, offering comfort and style for both casual and semi-formal occasions.",
+		"price": "60",
+		"quantityStock": "40",
+		"size": "S - M - L - XL",
+		"images": [
+			{
+				"path": "/public/products/pants2.png"
+			}
+		],
+		"category": "pants"
+	},
+	{
+		"title": "Jogger Pants",
+		"description": "Comfortable and trendy jogger pants, perfect for a laid-back, casual look.",
+		"price": "50",
+		"quantityStock": "50",
+		"size": "M - L - XL",
+		"images": [
+			{
+				"path": "/public/products/pants3.png"
+			}
+		],
+		"category": "pants"
+	},
+	{
+		"title": "Sport Cap",
+		"description": "Breathable fabric cap, perfect for sports and sunny days.",
+		"price": "25",
+		"quantityStock": "25",
+		"size": "One size",
+		"images": [
+			{
+				"path": "/public/products/cap1.png"
+			}
+		],
+		"category": "cap"
+	},
+	{
+		"title": "Baseball Cap",
+		"description": "Classic baseball cap with adjustable strap, perfect for casual wear and outdoor activities.",
+		"price": "20",
+		"quantityStock": "30",
+		"size": "One size",
+		"images": [
+			{
+				"path": "/public/products/cap2.png"
+			}
+		],
+		"category": "cap"
+	},
+	{
+		"title": "Bucket Hat",
+		"description": "Stylish bucket hat made of lightweight fabric, ideal for sunny days and casual outings.",
+		"price": "22",
+		"quantityStock": "40",
+		"size": "One size",
+		"images": [
+			{
+				"path": "/public/products/cap3.png"
+			}
+		],
+		"category": "cap"
+	},
+	{
+		"title": "Sports Sneakers",
+		"description": "Light and comfortable sports shoes, ideal for running and fitness.",
+		"price": "100",
+		"quantityStock": "45",
+		"size": "39 - 40 - 41 - 42 - 43 - 44",
+		"images": [
+			{
+				"path": "/public/products/shoes1.png"
+			}
+		],
+		"category": "shoes"
+	},
+	{
+		"title": "Running Sneakers",
+		"description": "Breathable and flexible running sneakers, designed for optimal comfort and speed.",
+		"price": "90",
+		"quantityStock": "50",
+		"size": "38 - 39 - 40 - 41 - 42 - 43",
+		"images": [
+			{
+				"path": "/public/products/shoes2.png"
+			}
+		],
+		"category": "shoes"
+	},
+	{
+		"title": "Casual Slip-ons",
+		"description": "Comfortable slip-on shoes for everyday wear, combining style and ease.",
+		"price": "75",
+		"quantityStock": "60",
+		"size": "38 - 39 - 40 - 41 - 42",
+		"images": [
+			{
+				"path": "/public/products/shoes3.png"
+			}
+		],
+		"category": "shoes"
+	}
+]

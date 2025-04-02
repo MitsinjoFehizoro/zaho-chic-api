@@ -1,5 +1,6 @@
 package edu.mitsinjo.zahochic.service.product;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.mitsinjo.zahochic.exception.ResourceNotFoundException;
 import edu.mitsinjo.zahochic.model.Category;
 import edu.mitsinjo.zahochic.model.Image;
@@ -10,9 +11,13 @@ import edu.mitsinjo.zahochic.repository.ProductRepository;
 import edu.mitsinjo.zahochic.request.ProductRequest;
 import edu.mitsinjo.zahochic.service.image.IImageService;
 import edu.mitsinjo.zahochic.service.image.ImageService;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -24,6 +29,7 @@ public class ProductService implements IProductService {
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
     private final ImageRepository imageRepository;
+    private final ObjectMapper objectMapper;
 
     @Override
     public List<Product> getAllProducts() {
@@ -50,7 +56,7 @@ public class ProductService implements IProductService {
                     return categoryRepository.save(newCategory);
                 });
         Product product = productRepository.save(createProduct(productRequest, category));
-        ;
+
         List<Image> images = productRequest.getImages();
         images.forEach(image -> {
             image.setProduct(product);
@@ -76,6 +82,17 @@ public class ProductService implements IProductService {
                 category,
                 productRequest.getImages()
         );
+    }
+
+    @PostConstruct
+    public void loadDefaultProducts() {
+        try {
+            InputStream inputStream = getClass().getClassLoader().getResourceAsStream("static/products.json");
+            List<ProductRequest> productRequests = objectMapper.readValue(inputStream, objectMapper.getTypeFactory().constructCollectionType(List.class, ProductRequest.class));
+            addAllProducts(productRequests);
+        } catch (Exception e) {
+            System.out.println("Error during load default products " + e.getMessage());
+        }
     }
 
 }

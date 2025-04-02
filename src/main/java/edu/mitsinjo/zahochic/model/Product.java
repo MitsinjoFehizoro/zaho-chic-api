@@ -30,7 +30,7 @@ public class Product {
     private List<Image> images;
 
     @JsonIgnore
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
 
