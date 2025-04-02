@@ -1,9 +1,11 @@
 package edu.mitsinjo.zahochic.request;
 
+import edu.mitsinjo.zahochic.model.Image;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Data
 public class ProductRequest {
@@ -28,6 +30,8 @@ public class ProductRequest {
     @NotNull
     @Size(min = 1, message = "Invalid size.")
     private String size;
+
+    private List<Image> images;
 
     private String category;
 }

@@ -7,11 +7,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("${api.prefix}/cart-items")
 public class CartItemController {
     private final ICartItemService cartItemService;
+
 
     @PostMapping("/add")
     public ResponseEntity<ApiResponse> addCartItemInCart(@RequestParam String quantity,@RequestParam String productId) {
@@ -26,7 +29,7 @@ public class CartItemController {
     }
     
     @PutMapping("/update")
-    public ResponseEntity<ApiResponse> updateCartItemInCart(@RequestParam String quantity, String cartItemId) {
+    public ResponseEntity<ApiResponse> updateCartItemInCart(@RequestParam String quantity, @RequestParam String cartItemId) {
         CartItem cartItem = cartItemService.updateCartItemInCart(quantity, cartItemId);
         return ResponseEntity.ok(new ApiResponse("Product in cart updated successfully", cartItem));
     }

@@ -24,7 +24,6 @@ public class Category {
     @Size(min=2, max=50, message = "Category must be between 2 and 50 characters long.")
     private String name;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Product>  products;
 

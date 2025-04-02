@@ -17,13 +17,13 @@ import java.util.Optional;
 public class CategoryController {
     private final ICategoryService categoryService;
 
-    @GetMapping("/all")
+    @GetMapping("/get/all")
     public ResponseEntity<ApiResponse> getAllCategories() {
         List<Category> categories = categoryService.getAllCategories();
         return ResponseEntity.ok(new ApiResponse("All categories retrieved successfully.", categories));
     }
 
-    @GetMapping("")
+    @GetMapping("/get")
     public ResponseEntity<ApiResponse> getCategoryByName(@RequestParam String name) {
         Category category = categoryService.getCategoryByName(name);
         return Optional.ofNullable(category)

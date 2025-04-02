@@ -28,6 +28,6 @@ public class CategoryService implements ICategoryService {
     public Category addCategory(Category category) {
         return Optional.ofNullable(category).filter(c -> !categoryRepository.existsByName(c.getName()))
                 .map(categoryRepository::save)
-                .orElseThrow(()-> new AlreadyExistException("Category " + category.getName() + " alrea  dy registered."));
+                .orElseThrow(()-> new AlreadyExistException("Category " + category.getName() + " already registered."));
     }
 }

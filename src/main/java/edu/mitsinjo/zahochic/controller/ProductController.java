@@ -23,6 +23,12 @@ public class ProductController {
         return ResponseEntity.ok(new ApiResponse("Product added successfully.", product));
     }
 
+    @PostMapping("/add/all")
+    public ResponseEntity<ApiResponse> addAllProducts(@Valid @RequestBody List<ProductRequest> productRequests) {
+        List<Product> products = productService.addAllProducts(productRequests);
+        return ResponseEntity.ok(new ApiResponse("All products added successfully.", products));
+    }
+
     @GetMapping("/get/all")
     public ResponseEntity<ApiResponse> getAllProducts() {
         List<Product> products = productService.getAllProducts();

@@ -13,4 +13,6 @@ public interface IProductService {
     List<Product> getProductsByCategoryName(String category);
 
     Product addProduct(ProductRequest productRequest);
+
+    List<Product> addAllProducts(List<ProductRequest> productRequests);
 }

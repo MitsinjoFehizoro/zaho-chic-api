@@ -2,6 +2,8 @@ package edu.mitsinjo.zahochic.service.cartItem;
 
 import edu.mitsinjo.zahochic.model.CartItem;
 
+import java.util.List;
+
 public interface ICartItemService {
     CartItem getCartItemById(String cartItemId);
 

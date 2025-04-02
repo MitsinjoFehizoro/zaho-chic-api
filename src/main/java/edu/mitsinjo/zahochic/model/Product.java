@@ -29,6 +29,7 @@ public class Product {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Image> images;
 
+    @JsonIgnore
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "category_id")
     private Category category;
@@ -37,12 +38,23 @@ public class Product {
     @OneToMany(mappedBy = "product")
     private List<CartItem> cartItems;
 
-    public Product(String title, String description, BigDecimal price, int quantityStock, String size, Category category) {
+    public void addImageToProduct(Image image) {
+        this.images.add(image);
+        image.setProduct(this);
+    }
+
+    public void removeImageToProduct(Image image) {
+        this.images.remove(image);
+        image.setProduct(null);
+    }
+
+    public Product(String title, String description, BigDecimal price, int quantityStock, String size, Category category, List<Image> images) {
         this.title = title;
         this.description = description;
         this.price = price;
         this.quantityStock = quantityStock;
         this.size = size;
+        this.images = images;
         this.category = category;
     }
 }
